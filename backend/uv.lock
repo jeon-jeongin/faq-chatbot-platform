@@ -46,6 +46,7 @@ dependencies = [
     { name = "fastapi", extra = ["standard"] },
     { name = "langchain-core" },
     { name = "langchain-openai" },
+    { name = "pydantic-settings" },
 ]
 
 [package.metadata]
@@ -53,6 +54,7 @@ requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.135.1" },
     { name = "langchain-core", specifier = ">=1.2.19" },
     { name = "langchain-openai", specifier = ">=1.1.11" },
+    { name = "pydantic-settings", specifier = ">=2.13.1" },
 ]
 
 [[package]]
