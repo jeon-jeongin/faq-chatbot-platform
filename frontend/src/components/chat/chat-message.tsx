@@ -23,8 +23,10 @@ export function ChatMessage({ message }: ChatMessageProps) {
 
   return (
     <div
+      data-message-id={message.id}
+      data-message-sender={message.sender}
       className={cn(
-        "group mx-auto flex w-full max-w-3xl gap-4 px-4 py-6 md:px-6",
+        "group mx-auto flex w-full max-w-3xl gap-2 px-4 py-2 md:px-6 md:py-3",
         isUser ? "justify-end" : "justify-start",
       )}
     >
