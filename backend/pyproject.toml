@@ -7,6 +7,8 @@ requires-python = ">=3.12"
 dependencies = [
     "fastapi[standard]>=0.135.1",
     "langchain-core>=1.2.19",
+    "langchain-community",
     "langchain-openai>=1.1.11",
+    "faiss-cpu",
     "pydantic-settings>=2.13.1",
 ]

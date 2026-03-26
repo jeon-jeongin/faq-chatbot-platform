@@ -14,9 +14,15 @@ class ChatRequest(BaseModel):
     question: str
 
 
+class ChatSource(BaseModel):
+    id: str
+    question: str
+    answer: str
+
+
 class ChatResponse(BaseModel):
     answer: str
-    sources: list[str]
+    sources: list[ChatSource]
     elapsed: float
     status: Literal["ok", "error"]
 

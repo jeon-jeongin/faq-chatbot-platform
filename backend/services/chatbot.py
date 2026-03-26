@@ -23,7 +23,12 @@ def validate_question(question: str) -> tuple[str | None, str]:
 def ask(domain: str, question: str) -> dict:
     error, normalized_question = validate_question(question)
     if error:
-        return {"answer": error, "sources": [], "elapsed": 0.0, "status": "error"}
+        return {
+            "answer": error,
+            "sources": [],
+            "elapsed": 0.0,
+            "status": "error",
+        }
 
     if domain != "housing":
         return {
@@ -42,9 +47,18 @@ def ask(domain: str, question: str) -> dict:
             {"context": context, "question": normalized_question}
         )
 
+        sources = [
+            {
+                "id": result["faq"]["id"],
+                "question": result["faq"]["question"],
+                "answer": result["faq"]["answer"],
+            }
+            for result in results
+        ]
+
         return {
             "answer": answer,
-            "sources": [result["faq"]["question"] for result in results],
+            "sources": sources,
             "elapsed": round(time.time() - start, 2),
             "status": "ok",
         }

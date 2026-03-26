@@ -6,10 +6,10 @@ import { sendChatMessage } from "@/lib/api";
 import type { ChatMessage, DomainId } from "@/lib/types";
 
 const suggestedQuestions = [
-  "청년 특별공급 신청 자격이 궁금해요.",
+  "주택 청약 신청 자격 조건은 무엇인가요?",
   "무주택 기준은 어떻게 판단하나요?",
-  "소득 기준과 자산 기준을 함께 알려주세요.",
-  "청약 신청 절차를 단계별로 설명해 주세요.",
+  "청약통장 1순위 조건은 무엇인가요?",
+  "특별공급의 종류에는 어떤 것이 있나요?",
 ];
 
 function createMessage(
@@ -55,8 +55,11 @@ function App() {
       const errorMessage = createMessage(
         "bot",
         "The backend request failed. Make sure the FastAPI server is running on http://127.0.0.1:8000.",
-        { status: "error" },
+        {
+          status: "error",
+        },
       );
+      setIsLoading(false);
       setMessages((previous) => [...previous, errorMessage]);
     } finally {
       setIsLoading(false);
