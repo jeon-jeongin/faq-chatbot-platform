@@ -11,4 +11,5 @@ dependencies = [
     "langchain-openai>=1.1.11",
     "faiss-cpu",
     "pydantic-settings>=2.13.1",
+    "requests>=2.32.5",
 ]

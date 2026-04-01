@@ -165,6 +165,7 @@ dependencies = [
     { name = "langchain-core" },
     { name = "langchain-openai" },
     { name = "pydantic-settings" },
+    { name = "requests" },
 ]
 
 [package.metadata]
@@ -175,6 +176,7 @@ requires-dist = [
     { name = "langchain-core", specifier = ">=1.2.19" },
     { name = "langchain-openai", specifier = ">=1.1.11" },
     { name = "pydantic-settings", specifier = ">=2.13.1" },
+    { name = "requests", specifier = ">=2.32.5" },
 ]
 
 [[package]]
