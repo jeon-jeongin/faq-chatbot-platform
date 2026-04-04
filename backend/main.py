@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from config import settings
-from routers.chat import router as chat_router
+from features.housing import router as housing_chat_router
 
 
 def create_app() -> FastAPI:
@@ -27,7 +27,7 @@ def create_app() -> FastAPI:
     async def health():
         return {"status": "ok", "service": "api"}
 
-    app.include_router(chat_router, prefix="/api")
+    app.include_router(housing_chat_router, prefix="/api")
     return app
 
 

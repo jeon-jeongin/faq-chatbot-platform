@@ -1,8 +1,8 @@
 import time
 
-from data.faq_housing import FAQ_DATA, SYSTEM_PROMPT
-from services.faq_search import format_context, search_faq
-from services.langchain_chain import build_answer_chain
+from features.housing.faq_housing import FAQ_DATA, SYSTEM_PROMPT
+from features.housing.faq_search import format_context, search_faq
+from features.housing.langchain_chain import build_answer_chain
 
 
 def validate_question(question: str) -> tuple[str | None, str]:

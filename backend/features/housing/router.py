@@ -3,10 +3,10 @@ from typing import Literal
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from services.chatbot import ask
+from features.housing.chatbot import ask
 
 
-router = APIRouter(prefix="/chat", tags=["chat"])
+router = APIRouter(prefix="/chat", tags=["housing"])
 
 
 class ChatRequest(BaseModel):
