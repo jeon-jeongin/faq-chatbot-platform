@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from config import settings
 from features.housing import router as housing_chat_router
+from features.toss_faq import router as toss_faq_router
 
 
 def create_app() -> FastAPI:
@@ -28,6 +29,7 @@ def create_app() -> FastAPI:
         return {"status": "ok", "service": "api"}
 
     app.include_router(housing_chat_router, prefix="/api")
+    app.include_router(toss_faq_router, prefix="/api")
     return app
 
 
