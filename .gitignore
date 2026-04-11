@@ -362,3 +362,8 @@ node_modules
 psd
 thumb
 sketch
+
+### FAISS vector store artifacts ###
+faiss_index/
+*.faiss
+*.pkl
