@@ -58,7 +58,11 @@ class TossFaqStore:
 
     def search_and_get_context(self, query: str, k: int = 5):
         reranked_docs = self.search(query, k)
-        return "\n---\n".join([doc["answer"] for doc in reranked_docs])
+        context = "\n---\n".join([doc["answer"] for doc in reranked_docs])
+        return {
+            "context": context,
+            "sources": reranked_docs,
+        }
 
     def search(self, query: str, k: int = 5):
         query_vec = self.embeddings.embed_query(query)

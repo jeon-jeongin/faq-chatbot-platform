@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ChatScreen } from "@/components/chat/chat-screen";
 import { AppShell } from "@/components/layout/app-shell";
 import { sendChatMessage } from "@/lib/api";
-import type { ChatMessage, DomainId } from "@/lib/types";
+import type { ChatMessage } from "@/lib/types";
 
 const suggestedQuestions = [
   "주택 청약 신청 자격 조건은 무엇인가요?",
@@ -27,7 +27,6 @@ function createMessage(
 }
 
 function App() {
-  const domain: DomainId = "housing";
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -44,7 +43,7 @@ function App() {
     setIsLoading(true);
 
     try {
-      const response = await sendChatMessage({ domain, question });
+      const response = await sendChatMessage({ input: question });
       const botMessage = createMessage("bot", response.answer, {
         sources: response.sources,
         elapsed: response.elapsed,
