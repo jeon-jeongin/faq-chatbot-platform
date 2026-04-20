@@ -4,10 +4,11 @@ from logging import getLogger
 
 from config import settings
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables import RunnableLambda, RunnableParallel
 from langchain_openai import ChatOpenAI
 
+from .schema import ChatMessage
 from .store import store
 
 logger = getLogger(__name__)
@@ -84,8 +85,9 @@ class FaqService:
         self.parser = StrOutputParser()
         self.store = store
 
-    def invoke(self, input: str) -> dict:
+    def invoke(self, messages: list[ChatMessage]) -> dict:
         prompt_template = self.get_prompt_template()
+        input = messages[-1].content
         retrieved = self.store.search_and_get_context(input)
         chain = RunnableParallel(
             answer=prompt_template | self.llm | self.parser,
@@ -103,6 +105,7 @@ class FaqService:
         return ChatPromptTemplate.from_messages(
             [
                 ("system", FaqPromptTemplates.SYSTEM_PROMPT.value),
+                MessagesPlaceholder(variable_name="history"),
                 ("human", FaqPromptTemplates.USER_PROMPT.value),
             ]
         )
@@ -111,9 +114,9 @@ class FaqService:
 faq_service = FaqService()
 
 
-def ask(input: str) -> dict:
+def ask(messages: list[ChatMessage]) -> dict:
     start = time.time()
-    result = faq_service.invoke(input)
+    result = faq_service.invoke(messages)
     elapsed = time.time() - start
     return {
         "answer": result["answer"],
