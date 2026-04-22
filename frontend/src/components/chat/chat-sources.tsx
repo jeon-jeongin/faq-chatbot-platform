@@ -14,7 +14,7 @@ export function ChatSources({ message }: ChatSourcesProps) {
   const hasElapsed = typeof message.elapsed === "number";
   const isError = message.status === "error";
 
-  const [activeSourceId, setActiveSourceId] = useState<string | null>(null);
+  const [activeSourceId, setActiveSourceId] = useState<number | null>(null);
 
   const activeSource = useMemo(() => {
     if (!activeSourceId) return null;

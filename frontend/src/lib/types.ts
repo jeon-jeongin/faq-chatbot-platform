@@ -1,5 +1,10 @@
+export interface BackendChatMessage {
+  role: 'user' | 'assistant'
+  content: string
+}
+
 export interface ChatRequest {
-  input: string
+  messages: BackendChatMessage[]
 }
 
 export type ChatStatus = 'ok' | 'error'
@@ -12,7 +17,7 @@ export interface ChatResponse {
 }
 
 export interface ChatSource {
-  id: string
+  id: number
   question: string
   answer: string
 }
