@@ -48,6 +48,7 @@ class BM25Document(Document):
 
 class TossFaqStore:
     def __init__(self):
+        self.df = pd.read_csv(CSV_PATH)
         self.embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
         self.title_store = self._load_or_create(TITLE_INDEX_PATH, TitleDocument)
         self.full_store = self._load_or_create(FULL_INDEX_PATH, FullDocument)
@@ -55,6 +56,7 @@ class TossFaqStore:
         self.full_doc_map = {
             doc.metadata["id"]: doc for doc in self.full_store.docstore._dict.values()
         }
+        self.source_detail_map = self._create_source_detail_map()
 
     def search_and_get_context(self, query: str, k: int = 5):
         reranked_docs = self.search(query, k)
@@ -75,6 +77,9 @@ class TossFaqStore:
         )
         reranked_docs = self._rerank(bm25_docs, title_vec_docs, full_vec_docs)
         return reranked_docs
+
+    def get_source_detail(self, doc_id: int):
+        return self.source_detail_map.get(doc_id)
 
     def _rerank(self, bm25_docs, title_vec_docs, full_vec_docs):
         threshold = 0.5
@@ -120,8 +125,7 @@ class TossFaqStore:
                 allow_dangerous_deserialization=True,
                 distance_strategy=DistanceStrategy.MAX_INNER_PRODUCT,
             )
-        df = pd.read_csv(CSV_PATH)
-        docs = [doc_cls(row) for _, row in df.iterrows()]
+        docs = [doc_cls(row) for _, row in self.df.iterrows()]
         store = FAISS.from_documents(
             docs,
             self.embeddings,
@@ -132,11 +136,22 @@ class TossFaqStore:
         return store
 
     def _create_bm25(self):
-        df = pd.read_csv(CSV_PATH)
-        docs = [BM25Document(row=row) for _, row in df.iterrows()]
+        docs = [BM25Document(row=row) for _, row in self.df.iterrows()]
         retriever = BM25Retriever.from_documents(docs)
         retriever.k = 5
         return retriever
+
+    def _create_source_detail_map(self):
+        return {
+            int(row.id): {
+                "id": int(row.id),
+                "title": row.title,
+                "description_html": row.description_html
+                if pd.notna(row.description_html)
+                else "",
+            }
+            for _, row in self.df.iterrows()
+        }
 
 
 store = TossFaqStore()

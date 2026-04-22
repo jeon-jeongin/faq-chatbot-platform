@@ -27,6 +27,12 @@ class ChatSource(BaseModel):
     answer: str
 
 
+class ChatSourceDetail(BaseModel):
+    id: int
+    title: str
+    description_html: str
+
+
 class ChatResponse(BaseModel):
     answer: str
     sources: list[ChatSource]

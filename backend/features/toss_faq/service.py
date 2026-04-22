@@ -137,6 +137,10 @@ class FaqService:
 faq_service = FaqService()
 
 
+def get_source_detail(doc_id: int) -> dict | None:
+    return store.get_source_detail(doc_id)
+
+
 def ask(messages: list[ChatMessage]) -> dict:
     start = time.time()
     result = faq_service.invoke(messages)
