@@ -5,12 +5,12 @@ import { AppShell } from "@/components/layout/app-shell";
 import { sendChatMessage } from "@/lib/api";
 import type { BackendChatMessage, ChatMessage } from "@/lib/types";
 
-// TODO: 추후 데이터베이스에서 조회하도록 수정
 const suggestedQuestions = [
-  "주택 청약 신청 자격 조건은 무엇인가요?",
-  "무주택 기준은 어떻게 판단하나요?",
-  "청약통장 1순위 조건은 무엇인가요?",
-  "특별공급의 종류에는 어떤 것이 있나요?",
+  "토스에서 자동이체 등록은 어떻게 하나요?",
+  "잔액 부족으로 자동이체가 실패되었는데 어떻게 해야 하나요?",
+  "토스 앱에서 송금한 뒤 송금확인증은 어떻게 발급받나요?",
+  "해외송금 서비스는 누가 이용할 수 있나요?",
+  "토스뱅크의 송금 수수료는 어떻게 되나요?",
 ];
 
 function createMessage(

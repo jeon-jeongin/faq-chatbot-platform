@@ -22,6 +22,12 @@ export interface ChatSource {
   answer: string
 }
 
+export interface ChatSourceDetail {
+  id: number
+  title: string
+  description_html: string
+}
+
 export type Sender = 'user' | 'bot'
 
 export interface ChatMessage {
